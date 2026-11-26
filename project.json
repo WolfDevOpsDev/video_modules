@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "name": "VisionModules",
+  "ultralytics_version": "8.4.38",
+  "env": [],
+  "scenarios": [
+    {
+      "id": "s_187ec549",
+      "name": "Face Access Control",
+      "vars": {},
+      "vars_expose": [],
+      "nodes": [
+        {
+          "id": "n_12b13cd2",
+          "type": "source.camera",
+          "params": {
+            "index": 0
+          },
+          "expose": [],
+          "pos": {
+            "x": -40,
+            "y": -56
+          }
+        },
+        {
+          "id": "n_6f7e4ba8",
+          "type": "model.face",
+          "params": {
+            "every": 1,
+            "min_face": 40,
+            "threshold": 0.363
+          },
+          "expose": [],
+          "pos": {
+            "x": 166,
+            "y": 48
+          }
+        },
+        {
+          "id": "n_3117cf81",
+          "type": "viz.annotate",
+          "params": {
+            "boxes": true,
+            "conf": true,
+            "ids": true,
+            "labels": true,
+            "lang": "uk",
+            "status": true,
+            "timers": true,
+            "trail_len": 30,
+            "trails": false,
+            "zones": true
+          },
+          "expose": [],
+          "pos": {
+            "x": 366,
+            "y": -112
+          }
+        },
+        {
+          "id": "n_4940888a",
+          "type": "viz.preview",
+          "params": {
+            "channel": "Головний",
+            "fps": 12,
+            "max_width": 1280,
+            "quality": 75
+          },
+          "expose": [],
+          "pos": {
+            "x": 583,
+            "y": -8
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_5a68a2a3",
+          "from": "n_12b13cd2.frame",
+          "to": "n_6f7e4ba8.frame"
+        },
+        {
+          "id": "e_a442726e",
+          "from": "n_6f7e4ba8.detections",
+          "to": "n_3117cf81.detections"
+        },
+        {
+          "id": "e_a2fd19b6",
+          "from": "n_12b13cd2.frame",
+          "to": "n_3117cf81.frame"
+        },
+        {
+          "id": "e_1c4e8e92",
+          "from": "n_3117cf81.frame",
+          "to": "n_4940888a.frame"
+        }
+      ]
+    }
+  ]
+}
